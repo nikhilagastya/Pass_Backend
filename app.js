@@ -15,10 +15,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(cookieParser());
-app.use(cors());
 app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
-app.use(cors());
+app.use(cors({
+  origin:'http://localhost:3000'
+}));
 const Razorpay = require("razorpay");
 const Port = process.env.PORT || 3000;
 const instance = new Razorpay({
@@ -71,6 +72,7 @@ app.get("/api/v1/rzp_refunds/:payment_id", (req, res) => {
       res.json(error);
     });
 });
+
 
 app.post("/send_details", async (req, res) => {
   try {
