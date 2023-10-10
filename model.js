@@ -2,31 +2,48 @@ const mongoose = require("mongoose");
 const schema= mongoose.Schema;
 
 const user_schema = new schema({
-  name: {
+  Rollno: {
     type: String,
     required: true,
   },
-  rno: {
+  Name: {
     type: String,
     required: true,
   },
-  phno: {
+  
+  Phoneno: {
     type: String,
     required: true,
   },
-    id: {
+    Year: {
     type: String,
     required: true,
   },
 
-  uniqkey: {
+  Parent: {
     type: String,
     required: true,
   },
-  entry: {
+  Prompt: {
+    type: String,
+    required: true,
+  },
+  Pass: {
+    type: String,
+    required: true,
+  },
+  TransactionId: {
+    type: String,
+    required: true,
+  },
+  Entry: {
     type: Boolean,
     required: true,
-  }
+  },
+  Paid: {
+    type: Boolean,
+    required: true,
+  },
   
 });
-module.exports=mongoose.model("user",user_schema)
+module.exports=mongoose.model("details",user_schema)
