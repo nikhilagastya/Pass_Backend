@@ -6,7 +6,12 @@ const user_schema = new schema({
   TransactionId: {
     type: String,
     required: true,
+  },
+  Amount: {
+    type: Number,
+    required: true,
   }
+  
   
   
 });

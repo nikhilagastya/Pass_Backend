@@ -75,6 +75,32 @@ app.get("/api/v1/rzp_refunds/:payment_id", (req, res) => {
     });
 });
 
+app.post("/get_details", async (req, res) => {
+  try {
+    let id = req.body.rno;
+    console.log(id);
+    let data = await User.find({ Rollno: id });
+    console.log(data);
+    if (data.length === 0) {
+      return res.json({
+        Success: false,
+        errors: "No Roll Number Exists",
+      });
+    } else {
+      res.json({
+        Success: true,
+        Rollno: data[0].Rollno,
+        Name: data[0].Name,
+        TransactionId: data[0].TransactionId,
+        Prompt: data[0].Prompt,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ Success: false });
+  }
+});
+
 app.post("/prompt", async (req, res) => {
   try {
     let id = req.body.rno;
@@ -180,7 +206,7 @@ app.post("/verify", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.json({ Success: false ,Error:err});
+    res.json({ Success: false, Error: err });
   }
 });
 
