@@ -179,11 +179,12 @@ app.post("/verify", async (req, res) => {
       return res.json({
         Success: false,
         errors: "Fake QR detected",
+        
       });
     }
 
     if (data[0].Entry === true) {
-      return res.json({ Success: false, errors: "QR already scanned" });
+      return res.json({ Success: false, errors: "QR already scanned",rno: data[0].Rollno  });
     } else {
       await User.updateOne(
         { TransactionId: uid },
@@ -206,7 +207,7 @@ app.post("/verify", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.json({ Success: false, Error: err });
+    res.json({ Success: false, Error: err,rno: data[0].Rollno  });
   }
 });
 
