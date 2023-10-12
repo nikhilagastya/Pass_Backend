@@ -178,7 +178,7 @@ app.post("/verify", async (req, res) => {
     if (trans_check.length === 0) {
       return res.json({
         Success: false,
-        errors: "Given Student didn't register",
+        errors: "Fake QR detected",
       });
     }
 
