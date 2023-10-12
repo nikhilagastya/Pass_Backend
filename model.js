@@ -16,7 +16,7 @@ const user_schema = new schema({
     required: true,
   },
     Year: {
-    type: String,
+    type: Number,
     required: true,
   },
 

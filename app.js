@@ -179,12 +179,15 @@ app.post("/verify", async (req, res) => {
       return res.json({
         Success: false,
         errors: "Fake QR detected",
-        
       });
     }
 
     if (data[0].Entry === true) {
-      return res.json({ Success: false, errors: "QR already scanned",rno: data[0].Rollno  });
+      return res.json({
+        Success: false,
+        errors: "QR already scanned",
+        rno: data[0].Rollno,
+      });
     } else {
       await User.updateOne(
         { TransactionId: uid },
@@ -207,9 +210,80 @@ app.post("/verify", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.json({ Success: false, Error: err,rno: data[0].Rollno  });
+    res.json({ Success: false, Error: err, rno: data[0].Rollno });
   }
 });
+
+app.get("/countYear", async (req, res) => {
+  try {
+    const count1 = await User.countDocuments({ Year: 1, Paid: true });
+    const count2 = await User.countDocuments({ Year: 2, Paid: true });
+    const count3 = await User.countDocuments({ Year: 3, Paid: true });
+    const count4 = await User.countDocuments({ Year: 4, Paid: true });
+    res.json({ 1: count1, 2: count2, 3: count3, 4: count4 });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while counting year 1." });
+  }
+});
+
+
+
+app.post("/checkpasscount", async (req, res) => {
+  try {
+    console.log(req.body.Year);
+    const cur_year = Number(req.body.Year);
+    
+    const count = await User.countDocuments({ Year: cur_year, Paid: true });
+
+    if (isNaN(cur_year)) {
+      res.status(400).json({ error: "Invalid year parameter" });
+      return;
+    }
+
+    if (cur_year == 1) {
+      if (count >= 450) {
+        res
+          .status(404)
+          .json({ error: "Sorry!! We are out of Passes for 1st years " });
+      } else {
+        res.status(200).json({ success: true });
+      }
+    }
+    if (cur_year == 2) {
+      if (count >= 450) {
+        res
+          .status(404)
+          .json({ error: "Sorry!! We are out of Passes for 2nd years " });
+      } else {
+        res.status(200).json({ success: true });
+      }
+    }
+    if (cur_year == 3) {
+      if (count >= 450) {
+        res
+          .status(404)
+          .json({ error: "Sorry!! We are out of Passes for 3rd years " });
+      } else {
+        res.status(200).json({ success: true });
+      }
+    }
+    if (cur_year == 4) {
+      if (count >= 450) {
+        res
+          .status(404)
+          .json({ error: "Sorry!! We are out of Passes for 4th years " });
+      } else {
+        res.status(200).json({ success: true });
+      }
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while counting " });
+  }
+});
+
+
 
 app.post("/put_id", async (req, res) => {
   try {
@@ -225,8 +299,8 @@ app.post("/put_id", async (req, res) => {
       });
     }
 
-    if (data[0].paid) {
-      return res.json({ Success: false, errors: "Already paid" });
+    if (data[0].Paid) {
+      return res.json({ Success: false, errors: "Already Paid" });
     } else {
       await User.updateOne(
         { Rollno: id },
