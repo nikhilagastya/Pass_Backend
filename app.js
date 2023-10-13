@@ -220,7 +220,7 @@ app.get("/countYear", async (req, res) => {
     const count2 = await User.countDocuments({ Year: 2, Paid: true });
     const count3 = await User.countDocuments({ Year: 3, Paid: true });
     const count4 = await User.countDocuments({ Year: 4, Paid: true });
-    res.json({ 1: count1, 2: count2, 3: count3, 4: count4 });
+    res.json({ y1: count1, y2: count2, y3: count3, y4: count4 });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "An error occurred while counting year." });
