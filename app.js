@@ -244,7 +244,7 @@ app.get("/countYear", async (req, res) => {
     const count2 = await User.countDocuments({ Year: 2, Paid: true });
     const count3 = await User.countDocuments({ Year: 3, Paid: true });
     const count4 = await User.countDocuments({ Year: 4, Paid: true });
-    res.json({ y1: count1, y2: count2, y3: count3, y4: count4 });
+    res.json({ y1: count1, y2: count2, y3: count3, y4: 460 });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "An error occurred while counting year." });
@@ -291,7 +291,7 @@ app.post("/checkpasscount", async (req, res) => {
       }
     }
     if (cur_year == 4) {
-      if (count >= 460) {
+      if (count >= 450) {
         res
           .status(404)
           .json({ error: "Sorry!! We are out of Passes for 4th years " });
