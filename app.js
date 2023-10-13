@@ -251,6 +251,15 @@ app.get("/countYear", async (req, res) => {
   }
 });
 
+app.get("/lim", async (req, res) => {
+  try {
+    res.json({ y1: 450, y2: 450, y3: 450, y4: 450 });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred ." });
+  }
+});
+
 app.post("/checkpasscount", async (req, res) => {
   try {
     console.log(req.body.Year);
@@ -328,9 +337,7 @@ app.post("/put_id", async (req, res) => {
       });
     }
 
-    if (data[0].Paid) {
-      return res.json({ Success: false, errors: "Already Paid" });
-    } else {
+    else {
       await User.updateOne(
         { Rollno: id },
         {
