@@ -223,17 +223,15 @@ app.get("/countYear", async (req, res) => {
     res.json({ 1: count1, 2: count2, 3: count3, 4: count4 });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "An error occurred while counting year 1." });
+    res.status(500).json({ error: "An error occurred while counting year." });
   }
 });
-
-
 
 app.post("/checkpasscount", async (req, res) => {
   try {
     console.log(req.body.Year);
     const cur_year = Number(req.body.Year);
-    
+
     const count = await User.countDocuments({ Year: cur_year, Paid: true });
 
     if (isNaN(cur_year)) {
@@ -283,8 +281,6 @@ app.post("/checkpasscount", async (req, res) => {
   }
 });
 
-
-
 app.post("/put_id", async (req, res) => {
   try {
     let id = req.body.rno;
@@ -296,6 +292,14 @@ app.post("/put_id", async (req, res) => {
       return res.json({
         Success: false,
         errors: "Given Student didn't register",
+      });
+    }
+    let trans_data = await User.find({ TransactionId: key });
+    console.log(trans_data)
+    if (trans_data.length != 0) {
+      return res.json({
+        Success: false,
+        errors: "Transaction ID already exists",
       });
     }
 
