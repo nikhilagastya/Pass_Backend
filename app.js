@@ -275,8 +275,8 @@ app.post("/checkpasscount", async (req, res) => {
     if (cur_year == 1) {
       if (count >= 450) {
         res
-          .status(404)
-          .json({ error: "Sorry!! We are out of Passes for 1st years " });
+          
+          .json({ success:false, error: "Sorry!! We are out of Passes for 1st years " });
       } else {
         res.status(200).json({ success: true });
       }
@@ -284,8 +284,7 @@ app.post("/checkpasscount", async (req, res) => {
     if (cur_year == 2) {
       if (count >= 450) {
         res
-          .status(404)
-          .json({ error: "Sorry!! We are out of Passes for 2nd years " });
+        .json({ success:false,error: "Sorry!! We are out of Passes for 2nd years " });
       } else {
         res.status(200).json({ success: true });
       }
@@ -293,8 +292,7 @@ app.post("/checkpasscount", async (req, res) => {
     if (cur_year == 3) {
       if (count >= 450) {
         res
-          .status(404)
-          .json({ error: "Sorry!! We are out of Passes for 3rd years " });
+        .json({ success:false, error: "Sorry!! We are out of Passes for 3rd years " });
       } else {
         res.status(200).json({ success: true });
       }
@@ -303,8 +301,7 @@ app.post("/checkpasscount", async (req, res) => {
 
       if (fu >= 450) {
         res
-          .status(404)
-          .json({ error: "Sorry!! We are out of Passes for 4th years " });
+        .json({ success:false, error: "Sorry!! We are out of Passes for 4th years " });
       } else {
         res.status(200).json({ success: true });
       }
