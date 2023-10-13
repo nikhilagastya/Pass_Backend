@@ -264,7 +264,7 @@ app.post("/checkpasscount", async (req, res) => {
   try {
     console.log(req.body.Year);
     const cur_year = Number(req.body.Year);
-    let fu=460;
+
     const count = await User.countDocuments({ Year: cur_year, Paid: true });
 
     if (isNaN(cur_year)) {
@@ -299,7 +299,7 @@ app.post("/checkpasscount", async (req, res) => {
     }
     if (cur_year == 4) {
 
-      if (fu >= 450) {
+      if (count >= 450) {
         res
         .json({ success:false, error: "Sorry!! We are out of Passes for 4th years " });
       } else {
