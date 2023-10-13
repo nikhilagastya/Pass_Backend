@@ -281,31 +281,36 @@ app.post("/checkpasscount", async (req, res) => {
         res.status(200).json({ success: true });
       }
     }
-    if (cur_year == 2) {
-      if (count >= 450) {
-        res
-        .json({ success:false,error: "Sorry!! We are out of Passes for 2nd years " });
-      } else {
-        res.status(200).json({ success: true });
+    else{
+      res.json({success:false})
       }
-    }
-    if (cur_year == 3) {
-      if (count >= 450) {
-        res
-        .json({ success:false, error: "Sorry!! We are out of Passes for 3rd years " });
-      } else {
-        res.status(200).json({ success: true });
-      }
-    }
-    if (cur_year == 4) {
 
-      if (count >= 450) {
-        res
-        .json({ success:false, error: "Sorry!! We are out of Passes for 4th years " });
-      } else {
-        res.status(200).json({ success: true });
-      }
-    }
+    
+    // if (cur_year == 2) {
+    //   if (count >= 450) {
+    //     res
+    //     .json({ success:false,error: "Sorry!! We are out of Passes for 2nd years " });
+    //   } else {
+    //     res.status(200).json({ success: true });
+    //   }
+    // }
+    // if (cur_year == 3) {
+    //   if (count >= 450) {
+    //     res
+    //     .json({ success:false, error: "Sorry!! We are out of Passes for 3rd years " });
+    //   } else {
+    //     res.status(200).json({ success: true });
+    //   }
+    // }
+    // if (cur_year == 4) {
+
+    //   if (count >= 450) {
+    //     res
+    //     .json({ success:false, error: "Sorry!! We are out of Passes for 4th years " });
+    //   } else {
+    //     res.status(200).json({ success: true });
+    //   }
+    // }
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "An error occurred while counting " });
