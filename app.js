@@ -89,10 +89,34 @@ app.post("/get_details", async (req, res) => {
     } else {
       res.json({
         Success: true,
+        Year: data[0].Year,
         Rollno: data[0].Rollno,
         Name: data[0].Name,
         TransactionId: data[0].TransactionId,
         Prompt: data[0].Prompt,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ Success: false });
+  }
+});
+
+app.post("/get_all_data", async (req, res) => {
+  try {
+    let id = req.body.rno;
+    console.log(id);
+    let data = await User.find({ Rollno: id });
+    console.log(data);
+    if (data.length === 0) {
+      return res.json({
+        Success: false,
+        errors: "No Roll Number Exists",
+      });
+    } else {
+      res.json({
+        Success: true,
+        info: data,
       });
     }
   } catch (err) {
@@ -267,7 +291,7 @@ app.post("/checkpasscount", async (req, res) => {
       }
     }
     if (cur_year == 4) {
-      if (count >= 450) {
+      if (count >= 460) {
         res
           .status(404)
           .json({ error: "Sorry!! We are out of Passes for 4th years " });
@@ -295,7 +319,7 @@ app.post("/put_id", async (req, res) => {
       });
     }
     let trans_data = await User.find({ TransactionId: key });
-    console.log(trans_data)
+    console.log(trans_data);
     if (trans_data.length != 0) {
       return res.json({
         Success: false,
