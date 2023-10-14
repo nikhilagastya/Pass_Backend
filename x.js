@@ -8,9 +8,9 @@ app.get("/", (req, res) => {
   //   const x = { ...req };
   const headers = req.headers;
   const keys = Object.keys(req);
-  if (!req.headers["user-agent"].includes("localhost:50000")) {
-    return res.json({});
-  }
+//   if (!req.headers["user-agent"].includes("localhost:50000")) {
+//     return res.json({});
+//   }
   res.json({ host: req.headers["user-agent"], keys });
 });
 

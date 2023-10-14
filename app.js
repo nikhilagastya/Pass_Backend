@@ -84,7 +84,7 @@ app.get("/api/v1/rzp_refunds/:payment_id", (req, res) => {
 });
 
 app.post("/get_details", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -114,7 +114,7 @@ app.post("/get_details", async (req, res) => {
 });
 
 app.post("/get_all_data", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -140,7 +140,7 @@ app.post("/get_all_data", async (req, res) => {
 });
 
 app.post("/prompt", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -165,7 +165,7 @@ app.post("/prompt", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -196,7 +196,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/send_details", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -216,7 +216,7 @@ app.post("/send_details", async (req, res) => {
 });
 
 app.post("/verify", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -266,7 +266,7 @@ app.post("/verify", async (req, res) => {
 
 app.get("/countYear", async (req, res) => {
   
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -291,7 +291,7 @@ app.get("/lim", async (req, res) => {
 });
 
 app.post("/checkpasscount", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
@@ -350,7 +350,7 @@ app.post("/checkpasscount", async (req, res) => {
 });
 
 app.post("/put_id", async (req, res) => {
-  if (!req.headers["user-agent"].includes("netlify") ) {
+  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
   }
   try {
