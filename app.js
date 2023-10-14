@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
 app.use(
   cors({
-    // origin:'http://localhost:3000'
+    origin:`https://kmitnavraas.netlify.app`
   })
 );
 const Razorpay = require("razorpay");
