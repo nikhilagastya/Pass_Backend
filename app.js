@@ -19,9 +19,13 @@ app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
 app.use(
   cors({
-    origin:`https://kmitnavraas.netlify.app`
+    origin: `https://kmitnavraas.netlify.app`,
   })
 );
+const sorsOptions = {
+  origin: `https://kmitnavraas.netlify.app`,
+};
+
 const Razorpay = require("razorpay");
 const Port = process.env.PORT || 3500;
 const instance = new Razorpay({
@@ -45,9 +49,13 @@ async function run() {
 }
 
 run();
-
-app.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+console.log("kjhgfdfghjk");
+app.get("/", async (req, res) => {
+  if (!req.headers["user-agent"].includes("localhost:3500")) {
+    return res.json({});
+  }
+  // res.json(req);
+  // res.render("index", { title: "Express" });
 });
 
 app.get("/api/v1/rzp_capture/:payment_id/:amount", (req, res) => {
@@ -76,6 +84,9 @@ app.get("/api/v1/rzp_refunds/:payment_id", (req, res) => {
 });
 
 app.post("/get_details", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     let id = req.body.rno;
     console.log(id);
@@ -103,6 +114,9 @@ app.post("/get_details", async (req, res) => {
 });
 
 app.post("/get_all_data", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     let id = req.body.rno;
     console.log(id);
@@ -126,6 +140,9 @@ app.post("/get_all_data", async (req, res) => {
 });
 
 app.post("/prompt", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     let id = req.body.rno;
     console.log(id);
@@ -148,6 +165,9 @@ app.post("/prompt", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     let id = req.body.rno;
     let pass = req.body.pass;
@@ -176,6 +196,9 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/send_details", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     await User.create({
       name: req.body.name,
@@ -193,6 +216,9 @@ app.post("/send_details", async (req, res) => {
 });
 
 app.post("/verify", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     let uid = req.body.t_id;
     console.log(uid);
@@ -239,6 +265,10 @@ app.post("/verify", async (req, res) => {
 });
 
 app.get("/countYear", async (req, res) => {
+  
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     const count1 = await User.countDocuments({ Year: 1, Paid: true });
     const count2 = await User.countDocuments({ Year: 2, Paid: true });
@@ -261,6 +291,9 @@ app.get("/lim", async (req, res) => {
 });
 
 app.post("/checkpasscount", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     console.log(req.body.Year);
     const cur_year = Number(req.body.Year);
@@ -274,18 +307,17 @@ app.post("/checkpasscount", async (req, res) => {
 
     if (cur_year == 1) {
       if (count >= 450) {
-        res
-          
-          .json({ success:false, error: "Sorry!! We are out of Passes for 1st years " });
+        res.json({
+          success: false,
+          error: "Sorry!! We are out of Passes for 1st years ",
+        });
       } else {
         res.status(200).json({ success: true });
       }
+    } else {
+      res.json({ success: false });
     }
-    else{
-      res.json({success:false})
-      }
 
-    
     // if (cur_year == 2) {
     //   if (count >= 450) {
     //     res
@@ -318,6 +350,9 @@ app.post("/checkpasscount", async (req, res) => {
 });
 
 app.post("/put_id", async (req, res) => {
+  if (!req.headers["user-agent"].includes("netlify") ) {
+    return res.json({ success: false });
+  }
   try {
     let id = req.body.rno;
     let key = req.body.t_id;
@@ -337,9 +372,7 @@ app.post("/put_id", async (req, res) => {
         Success: false,
         errors: "Transaction ID already exists",
       });
-    }
-
-    else {
+    } else {
       await User.updateOne(
         { Rollno: id },
         {
