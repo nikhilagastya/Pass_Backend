@@ -19,12 +19,10 @@ app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
 app.use(
   cors({
-    origin: `https://kmitnavraas.netlify.app`,
+    origin:[ `https://kmitnavraas.netlify.app`,`https://navrass-dashboard.onrender.com`],
   })
 );
-const sorsOptions = {
-  origin: `https://kmitnavraas.netlify.app`,
-};
+
 
 const Razorpay = require("razorpay");
 const Port = process.env.PORT || 3500;
