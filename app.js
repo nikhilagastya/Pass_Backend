@@ -17,9 +17,15 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
+// app.use(
+//   cors({
+//     origin:[ `https://kmitnavraas.netlify.app`,`https://navrass-dashboard.onrender.com`,``],
+//   })
+// );
+
 app.use(
   cors({
-    origin:[ `https://kmitnavraas.netlify.app`,`https://navrass-dashboard.onrender.com`],
+    origin:[ `https://kmitnavraastest.netlify.app`,`https://navrass-dashboard.onrender.com`,``],
   })
 );
 
@@ -111,6 +117,7 @@ app.post("/get_details", async (req, res) => {
   }
 });
 
+app.post("mark_paid")
 app.post("/get_all_data", async (req, res) => {
   if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
     return res.json({ success: false });
