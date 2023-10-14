@@ -10,6 +10,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const User = require("./model");
 const trans = require("./model_trans");
+const Events = require("./model_event");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,10 +26,13 @@ const mongoose = require("mongoose");
 
 app.use(
   cors({
-    origin:[ `https://kmitnavraastest.netlify.app`,`https://navrass-dashboard.onrender.com`,``],
+    origin: [
+      `https://kmitnavraastest.netlify.app`,
+      `https://navrass-dashboard.onrender.com`,
+      ``,
+    ],
   })
 );
-
 
 const Razorpay = require("razorpay");
 const Port = process.env.PORT || 3500;
@@ -88,7 +92,10 @@ app.get("/api/v1/rzp_refunds/:payment_id", (req, res) => {
 });
 
 app.post("/get_details", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -117,9 +124,12 @@ app.post("/get_details", async (req, res) => {
   }
 });
 
-app.post("mark_paid")
+app.post("mark_paid");
 app.post("/get_all_data", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -145,7 +155,10 @@ app.post("/get_all_data", async (req, res) => {
 });
 
 app.post("/prompt", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -170,7 +183,10 @@ app.post("/prompt", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -201,7 +217,10 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/send_details", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -221,7 +240,10 @@ app.post("/send_details", async (req, res) => {
 });
 
 app.post("/verify", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -270,8 +292,10 @@ app.post("/verify", async (req, res) => {
 });
 
 app.get("/countYear", async (req, res) => {
-  
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -296,7 +320,10 @@ app.get("/lim", async (req, res) => {
 });
 
 app.post("/checkpasscount", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -355,7 +382,10 @@ app.post("/checkpasscount", async (req, res) => {
 });
 
 app.post("/put_id", async (req, res) => {
-  if (req.headers["user-agent"].includes("thunder") ||req.headers["user-agent"].includes("Post") ) {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
     return res.json({ success: false });
   }
   try {
@@ -397,6 +427,71 @@ app.post("/put_id", async (req, res) => {
       );
       res.json({ Success: true });
     }
+  } catch (err) {
+    console.log(err);
+    res.json({ Success: false });
+  }
+});
+
+
+app.post("/put_council_perf", async (req, res) => {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
+    return res.json({ success: false });
+  }
+  try {
+    let id = req.body.rno;
+    let key = req.body.t_id;
+
+    let data = await User.find({ Rollno: id });
+    console.log(data);
+    if (data.length === 0) {
+      return res.json({
+        Success: false,
+        errors: "Given Student didn't register",
+      });
+    }
+   else {
+      await User.updateOne(
+        { Rollno: id },
+        {
+          $set: {
+            Rollno: data[0].Rollno,
+            Name: data[0].Name,
+            Phoneno: data[0].Phoneno,
+            Year: data[0].Year,
+            Parent: data[0].Parent,
+            Prompt: data[0].Prompt,
+            Pass: data[0].Pass,
+            TransactionId: key,
+            Entry: data[0].Entry,
+            Paid: false,
+          },
+        }
+      );
+      res.json({ Success: true });
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ Success: false });
+  }
+});
+
+app.post("/register_fun_event", async (req, res) => {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
+    return res.json({ success: false });
+  }
+  try {
+    let rno=req.body.rno;
+    await Events.create({
+      Rollno: req.body.rno,
+    });
+    res.json({ Success: true });
   } catch (err) {
     console.log(err);
     res.json({ Success: false });
