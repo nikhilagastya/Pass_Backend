@@ -358,14 +358,14 @@ app.post("/checkpasscount", async (req, res) => {
     //     res.status(200).json({ success: true });
     //   }
     // }
-    // if (cur_year == 3) {
-    //   if (count >= 450) {
-    //     res
-    //     .json({ success:false, error: "Sorry!! We are out of Passes for 3rd years " });
-    //   } else {
-    //     res.status(200).json({ success: true });
-    //   }
-    // }
+    if (cur_year == 3) {
+      if (count >= 450) {
+        res
+        .json({ success:false, error: "Sorry!! We are out of Passes for 3rd years " });
+      } else {
+        res.status(200).json({ success: true });
+      }
+    }
     // if (cur_year == 4) {
 
     //   if (count >= 450) {
