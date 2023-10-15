@@ -20,7 +20,11 @@ app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
 app.use(
   cors({
-    origin:[ `https://kmitnavraas.netlify.app`,`https://navrass-dashboard.onrender.com`],
+    origin: [
+      `https://kmitnavraas.netlify.app`,
+      `https://navrass-dashboard.onrender.com`,
+      ``,
+    ],
   })
 );
 
@@ -346,7 +350,7 @@ app.post("/checkpasscount", async (req, res) => {
       } else {
         res.status(200).json({ success: true });
       }
-    } 
+    }
 
     // if (cur_year == 2) {
     //   if (count >= 450) {
@@ -358,14 +362,14 @@ app.post("/checkpasscount", async (req, res) => {
     // }
     if (cur_year == 3) {
       if (count >= 450) {
-        res
-        .json({ success:false, error: "Sorry!! We are out of Passes for 3rd years " });
+        res.json({
+          success: false,
+          error: "Sorry!! We are out of Passes for 3rd years ",
+        });
       } else {
         res.status(200).json({ success: true });
       }
-    }
-
-    else {
+    } else {
       res.json({ success: false });
     }
     // if (cur_year == 4) {
@@ -435,7 +439,6 @@ app.post("/put_id", async (req, res) => {
   }
 });
 
-
 app.post("/put_council_perf", async (req, res) => {
   if (
     req.headers["user-agent"].includes("thunder") ||
@@ -454,8 +457,7 @@ app.post("/put_council_perf", async (req, res) => {
         Success: false,
         errors: "Given Student didn't register",
       });
-    }
-   else {
+    } else {
       await User.updateOne(
         { Rollno: id },
         {
@@ -489,7 +491,7 @@ app.post("/register_fun_event", async (req, res) => {
     return res.json({ success: false });
   }
   try {
-    let rno=req.body.rno;
+    let rno = req.body.rno;
     await Events.create({
       Rollno: req.body.rno,
     });
