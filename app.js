@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
 app.use(
   cors({
-    origin:[ `https://kmitnavraas.netlify.app`,`https://navrass-dashboard.onrender.com`,``],
+    origin:[ `https://kmitnavraas.netlify.app`,`https://navrass-dashboard.onrender.com`],
   })
 );
 
