@@ -18,25 +18,25 @@ app.use(helmet());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "views")));
 const mongoose = require("mongoose");
-// app.use(
-//   cors({
-//     origin: [
-//       `https://kmitnavraas.netlify.app`,
-//       `https://navrass-dashboard.onrender.com`,
-//       ``,
-//     ],
-//   })
-// );
-
 app.use(
   cors({
     origin: [
-      `https://kmitnavraastest.netlify.app`,
+      `https://kmitnavraas.netlify.app`,
       `https://navrass-dashboard.onrender.com`,
       ``,
     ],
   })
 );
+
+// app.use(
+//   cors({
+//     origin: [
+//       `https://kmitnavraastest.netlify.app`,
+//       `https://navrass-dashboard.onrender.com`,
+//       ``,
+//     ],
+//   })
+// );
 
 const Razorpay = require("razorpay");
 const Port = process.env.PORT || 3500;
