@@ -23,7 +23,7 @@ app.use(
     origin: [
       `https://kmitnavraas.netlify.app`,
       `https://navrass-dashboard.onrender.com`,
-      `https://navraaskmit.netlify.app/`,
+      `https://navraaskmit.netlify.app`,
       ``,
     ],
   })
