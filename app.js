@@ -346,9 +346,7 @@ app.post("/checkpasscount", async (req, res) => {
       } else {
         res.status(200).json({ success: true });
       }
-    } else {
-      res.json({ success: false });
-    }
+    } 
 
     // if (cur_year == 2) {
     //   if (count >= 450) {
@@ -365,6 +363,10 @@ app.post("/checkpasscount", async (req, res) => {
       } else {
         res.status(200).json({ success: true });
       }
+    }
+
+    else {
+      res.json({ success: false });
     }
     // if (cur_year == 4) {
 
