@@ -409,7 +409,7 @@ app.post("/checkpasscount", async (req, res) => {
     
     else if (cur_year == 4) {
 
-      if (count >= 400) {
+      if (count >= 420) {
         res
         .json({ success:false, error: "Sorry!! We are out of Passes for 4th years " });
       } else {
