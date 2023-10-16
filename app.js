@@ -24,6 +24,7 @@ app.use(
       `https://kmitnavraas.netlify.app`,
       `https://navrass-dashboard.onrender.com`,
       `https://navraaskmit.netlify.app`,
+      `https://kmitnavraastest.netlify.app`,
       ``,
     ],
   })
@@ -129,7 +130,7 @@ app.post("/get_details", async (req, res) => {
   }
 });
 
-app.post("mark_paid");
+
 app.post("/get_all_data", async (req, res) => {
   if (
     req.headers["user-agent"].includes("thunder") ||
@@ -212,6 +213,40 @@ app.post("/login", async (req, res) => {
         res.json({
           Success: false,
           Error: "Wrong Password",
+        });
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    res.json({ Success: false });
+  }
+});
+
+app.post("/login_using_transaction", async (req, res) => {
+  if (
+    req.headers["user-agent"].includes("thunder") ||
+    req.headers["user-agent"].includes("Post")
+  ) {
+    return res.json({ success: false });
+  }
+  try {
+    let id = req.body.rno;
+    let t_id = req.body.t_id;
+    console.log(id);
+    let data = await User.find({ Rollno: id });
+    console.log(data);
+    if (data.length === 0) {
+      return res.json({
+        Success: false,
+        errors: "No Roll Number Exists",
+      });
+    } else {
+      if (data[0].TransactionId === t_id) {
+        res.json({ Success: true });
+      } else {
+        res.json({
+          Success: false,
+          Error: "Wrong Transaction_ID",
         });
       }
     }
