@@ -321,7 +321,7 @@ app.post("/verify", async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    res.json({ Success: false, Error: err, rno: data[0].Rollno });
+    res.json({ Success: false, Error: err});
   }
 });
 
