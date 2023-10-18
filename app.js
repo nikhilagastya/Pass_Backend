@@ -299,13 +299,7 @@ app.post("/verify", async (req, res) => {
       });
     }
 
-    if (data[0].Entry === true) {
-      return res.json({
-        Success: false,
-        errors: "QR already scanned",
-        rno: data[0].Rollno,
-      });
-    } else {
+    else {
       await User.updateOne(
         { TransactionId: uid },
         {
